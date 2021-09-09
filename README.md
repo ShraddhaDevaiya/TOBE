@@ -1,6 +1,5 @@
-# bug_smmarizer
-Bug report summarization: Using MVC architecture to allow future flask extension
+# Task-based Bug Report Summarizer
 
-#### Start Stanford CoreNLP Server
+#### Starting the Stanford CoreNLP Server
 cd D:\stanford-corenlp>
 java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -port 9000 -timeout 15000# Task-based-Bug-Summerizer
