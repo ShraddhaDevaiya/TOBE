@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Bug Report Summarizer</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >
+        <link rel="stylesheet" type="text/css" href="..\static\css\main.css">
+
+
+    </head>
+    <body>
+        <!--Navigation bar-->
+        <nav class="navbar fixed-top navbar-expand-md">
+            <form>
+                <div class="form-group">
+                    <div class="collapse navbar-collapse" id="main-navigation">
+                        <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-light" >DES</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-info" >CW</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-info" >Org</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-info" >QT</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox" id="Topic" class="filter" value="0" onclick="func()" />
+                                <label class="checkbox-inline badge badge-primary" >Topic</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-warning" >OT</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-secondary" >URL</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-dark" >C</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-success" >RES</label>
+                            </div>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+            
+        </nav>
+        <!--Header content-->
+        <header class="page-header header container-fluid">
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <div id="accordion" class="accordion">
+                            <div class="card mb-0">
+                                <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseOne" href="#">
+                                    <a class="card-title"> Justin Dolske 2009-05-29 </a>
+                                </div>
+                                <div id="collapseOne" class="card-body collapse in" >
+                                    <ul>
+                                        <li>MattN noticed a problem with the WIP patch from bug 469443 applied.</li>
+                                        <li>When typing in the search box, sometimes search-suggestion entries would be displayed above the divider (where entries for previous matching searches are).</li>
+                                        <li>The problem here is that nsSearchSuggestions.js is passing the wrong previousResult to form history.</li>
+                                        <li>Instead of it being the previous form history search result, it's the SuggestAutoCompleteResult result (which contains the union of the form-history and search-suggest entries).</li>
+                                        <li>So, when form history refines its results as you time, it can actually add *more* entries as data leaks from the suggestions result into form history result, and it thus looks like the divider is being drawn in the wrong place.</li>
+                                        <li>This bug wasn't visible before 469443, because nsFormFillController::StartSearch tries to QI the provided result to a nsIAutoCompleteSimpleResult. </li>
+                                        <li>The search-suggestion result is only implements nsIAutoCompletResult (no &#34;Simple&#34;), so the QI fails, historyResult nee previousResult becomes null, and thus Satchel was doing a new search every time.</li>
+                                        <li>EG:</li>
+                                        <li>1) type &#34;b&#34; in the search field.</li>
+                                        <li>2) form history finds 1 entry (&#34;blah&#34;), search-suggestions finds &#34;baaa&#34;, &#34;bloop&#34;, &#34;bzzz&#34;, the autocompete menu shows these in order with a divider between &#34;blah&#34; and &#34;baaa&#34;.</li>
+                                        <li>3) type an &#34;l&#34; in the search field (&#34;bl&#34;)</li>
+                                        <li>4) startHistorySearch()'s previous result contains [&#34;blah&#34;, &#34;baaa&#34;, &#34;bloop&#34;, &#34;bzzz&#34;], Satchel filters this down to [&#34;blah&#34;, &#34;bloop&#34;] to match the new &#34;bl&#34; search string</li>
+                                        <li>5) nsSearchSuggestions's onReadyState() change is called with updated search suggestions, builds up a new list of results, but sees that the form history result now has *two* entries.</li>
+                                    </ul>
+                                </div>
+                                <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo" href="#">
+                                    <a class="card-title"> Justin Dolske 2009-05-29 </a>
+                                </div>
+                                <div id="collapseTwo" class="card-body collapse in" >
+                                    <ul>
+                                        <li>Created an attachment (id=380567) [details] Patch v.1 (WIP)</li>
+                                        <li>This fixes the problem, but isn't quite correct...</li>
+                                        <li>If you type &#34;a&lt;backspace&gt;b&#34;, satchel trying to use the results from the &#34;a&#34; search for the &#34;b&#34; search, and so nothing is found.</li>
+                                        <li>I suspect nsSearchSuggestions needs to throw away the old form history result when the search string changes like this, but I'm not entirely sure it's responsible for doing so, maybe satchel should be smarter about throwing away a previous result when the previous result's search string doesn't have a common prefix.</li>
+                                        <li>[That seems to be handled somewhere else for normal form field entries, oddly enough.]</li>
+                                    </ul>
+                                </div>
+                                <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree" href="#">
+                                    <a class="card-title"> Justin Dolske 2009-06-14 </a>
+                                </div>
+                                <div id="collapseThree" class="card-body collapse in" >
+                                    <ul>
+                                        <li>Created an attachment (id=383211) [details] Patch v.2</li>
+                                        <li>Ah. So, there's a ._formHistoryResult in the SuggestAutoCompleteResult wrapper (used to combine form history with search suggestions), and also a ._formHistoryResult in SuggestAutoComplete (the service itself, used to hold onto a form history result until a search suggestion is available).</li>
+                                        <label><span class="badge badge-primary">Topic</span></label>
+                                        <li><span class="highlight">The simple fix it to just discard the service's form result copy when startSearch() is called with a null previous result.</span></li>
+                                        <label><span class="badge badge-dark">C</span></label> <label><span class="badge badge-primary">Topic</span></label>
+                                        <li><span class="highlight">Otherwise it's trying to use a old form history result that no longer applies for the search string.</span></li>
+                                        <label><span class="badge badge-primary">Topic</span></label>
+                                    </ul>
+                                </div>
+                                <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" data-target="#collapseFour" href="#">
+                                    <a class="card-title"> Gavin Sharp 2009-06-19 </a>
+                                </div>
+                                <div id="collapseFour" class="card-body collapse in" >
+                                    <ul>
+                                        <li>(From update of attachment 383211 [details])</li>
+                                        <label><span class="badge badge-success">Res</span></label>
+                                        <li><span class="highlight">Perhaps we should rename one of them to _fhResult just to reduce confusion?</span></li>
+                                        <label><span class="badge badge-primary">Org</span></label>
+                                    </ul>
+                                </div>
+                                <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" data-target="#collapseFive" href="#">
+                                    <a class="card-title"> Justin Dolske 2009-06-19 </a>
+                                </div>
+                                <div id="collapseFive" class="card-body collapse in" >
+                                    <ul>
+                                        <li><div class="special-card">(In reply to comment #3)</div></li>
+                                        <li>&gt; (From update of attachment 383211 [details] [details])</li>
+                                        <label><span class="badge badge-primary">QT</span></label><label><span class="badge badge-success">RES</span></label>
+                                        <li><span class="highlight">&gt; Perhaps we should rename one of them to _fhResult just to reduce confusion?</span></li>
+                                        <label><span class="badge badge-primary">QT</span></label>
+                                        <li><div class="special-card">Good point.</div></li>
+                                        <div class="special-card"><label><span class="badge badge-warning">OT</span></label></div>
+                                        <li>I renamed the one in the wrapper to _formHistResult.</li>
+                                        <label><span class="badge badge-info">CW</span></label>
+                                        <li>fhResult seemed maybe a bit too short.</li>
+                                    </ul>
+                                </div>
+                                <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" data-target="#collapseSix" href=>
+                                    <a class="card-title"> Justin Dolske 2009-06-19 </a>
+                                </div>
+                                <div id="collapseSix" class="card-body collapse in" >
+                                    <ul>
+                                        <li>Pushed http://hg.mozilla.org/mozilla-central/rev/097598383614</li>
+                                        <label><span class="badge badge-success">RES</span></label>
+                                        <label><span class="badge badge-secondary">URL</span></label>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="card fixed">
+                            <h5 class="card-header">Topic words</h5>
+                            <div class="card-body">
+                                <div>
+                                    <input type="checkbox" id="search" class="topic-check" onclick="func1()" /> <label class="checkbox-inline" >search</label> <br/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="results" class="topic-check" onclick="func1()" /> <label class="checkbox-inline" >results</label> <br/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="form" class="topic-check" onclick="func1()" /> <label class="checkbox-inline" >form</label> <br/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="history" class="topic-check" onclick="func1()" /> <label class="checkbox-inline" >history</label> <br/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="previous" class="topic-check" onclick="func1()" /> <label class="checkbox-inline" >previous</label> <br/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="rename" class="topic-check" onclick="func1()" /> <label class="checkbox-inline" >rename</label> <br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!--Java scripts-->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="..\static\js\main.js"></script>
+    </body>
+</html>

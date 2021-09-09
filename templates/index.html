@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Bug Summarizer</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--Bootstrap and font-awesome css-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >
+        <!--Local css-->
+        <link rel="stylesheet" type="text/css" href="..\static\css\main.css">
+
+    </head>
+    <body>       
+        <!--controller to filter sentences-->
+        <nav class="navbar fixed-top navbar-expand-md">
+            <!--<form>-->
+                <div class="form-group">
+                    <div class="collapse navbar-collapse" id="main-navigation">
+                        <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-light" >DES</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-info" >CW</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-primary" >Org</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-primary" >QT</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-warning" >OT</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-secondary" >URL</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-dark" >Code</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox"  value="0" />
+                                <label class="checkbox-inline badge badge-success" >RES</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <button type="submit" class="btn btn-outline-success btn-sm">Filter</button>
+                            </div>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+            <!--</form>-->
+        </nav>
+        
+
+        <!--Display the bug report-->
+        <!--Header content-->
+        <!--<header class="page-header header container-fluid">-->
+            <div class="overlay"></div>
+            <div class="container container-fluid">
+                <div class="row">
+                    <div class="col-lg-10"></div>
+                        <div id="accordion" class="accordion">
+                            <div class="card mb-0" id="bugDisplay">
+                                {% for turn in response %}
+                                    <div class="card-header collapsed" data-toggle="collapse" data-target="#collapse{{turn['turn_id']}}" href="#">
+                                        <a class="card-title"> {{turn['author_name']}} {{turn['date_time']}} </a>
+                                    </div>
+                                    <div id="collapse{{turn['turn_id']}}" class="card-body collapse in" >
+                                        <ul>
+                                        {% for sent in turn['list_of_sentences'] %}
+                                            <li>{{sent['text']}}</li>
+                                            {% for tag in sent['tags'] %}
+                                                <label><span class="badge badge-success">{{ tag }}</span></label>
+                                            {% endfor %}
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 side-panel">
+                        <div class="card fixed">
+                            <h5 class="card-header">Topic words</h5>
+                            <div class="card-body">
+                                {% for topic in response['topics'] %}
+                                <div>
+                                    <input type="checkbox" id="{{topic}}" class="topic-check" onclick="func1()" /> <label class="checkbox-inline" >{{ topic }}</label> <br/>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!--</header>-->
+
+        <!--JQuery and bootstrap java scripts-->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <!--local java scripts-->
+        <script src="..\static\js\main.js"></script>
+    </body>
+</html>

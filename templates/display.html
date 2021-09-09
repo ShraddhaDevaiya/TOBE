@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Bug Report Summarizer</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >
+        <link rel="stylesheet" type="text/css" href="..\static\css\main.css">
+
+
+    </head>
+    <body>
+        <!--Navigation bar-->
+        <nav class="navbar fixed-top navbar-expand-md">
+            <form>
+                <div class="form-group">
+                    <div class="collapse navbar-collapse" id="main-navigation">
+                        <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox" id="DES" class="filter" value="0" onclick="func()" />
+                                <label class="checkbox-inline badge badge-light" >DES</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox" id="CW" class="filter" value="0" onclick="func()" />
+                                <label class="checkbox-inline badge badge-info" >CW</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox" id="Org" class="filter" value="0" onclick="func()" />
+                                <label class="checkbox-inline badge badge-info" >Org</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox" id="QT" class="filter" value="0" onclick="func()" />
+                                <label class="checkbox-inline badge badge-info" >QT</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox" id="Topic" class="filter" value="0" onclick="func()" />
+                                <label class="checkbox-inline badge badge-primary" >Topic</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox" id="OT" class="filter" value="0" onclick="func()" />
+                                <label class="checkbox-inline badge badge-warning" >OT</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox" id="URL" class="filter" value="0" onclick="func()" />
+                                <label class="checkbox-inline badge badge-secondary" >URL</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox" id="Code" class="filter" value="0" onclick="func()" />
+                                <label class="checkbox-inline badge badge-dark" >Code</label>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link">
+                                <input type="checkbox" id="RES" class="filter" value="0" onclick="func()" />
+                                <label class="checkbox-inline badge badge-success" >RES</label>
+                            </div>
+                        </li>
+                        <div class="btn-group text-right">
+                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                List of bug reports
+                            </button>
+                            <div class="dropdown-menu scrollable-menu">
+                                <a class="dropdown-item" data-attVal="0" href="{{url_for('selectDisplay',id=0)}}">(495584) Firefox</a>
+                                <a class="dropdown-item" data-attVal="1" href="{{url_for('selectDisplay',id=1)}}">(449596) Firefox</a>
+                                <a class="dropdown-item" data-attVal="2" href="{{url_for('selectDisplay',id=2)}}">(491925) Firefox</a>
+                                <a class="dropdown-item" data-attVal="3" href="{{url_for('selectDisplay',id=3)}}">(250125) Eclipse</a>
+                                <a class="dropdown-item" data-attVal="4" href="{{url_for('selectDisplay',id=4)}}">(224588) Eclipse</a>
+                                <a class="dropdown-item" data-attVal="5" href="{{url_for('selectDisplay',id=5)}}">(223734) Eclipse</a>
+                                <a class="dropdown-item" data-attVal="6" href="{{url_for('selectDisplay',id=6)}}">(437797) Firefox</a>
+                                <a class="dropdown-item" data-attVal="7" href="{{url_for('selectDisplay',id=7)}}">(260502) Eclipse</a>
+                                <a class="dropdown-item" data-attVal="8" href="{{url_for('selectDisplay',id=8)}}">(328600) Firefox</a>
+                                <a class="dropdown-item" data-attVal="9" href="{{url_for('selectDisplay',id=9)}}">(156905) GIMP</a>
+                                <a class="dropdown-item" data-attVal="10" href="{{url_for('selectDisplay',id=10)}}">(164995) GIMP</a>
+                                <a class="dropdown-item" data-attVal="11" href="{{url_for('selectDisplay',id=11)}}">(170801) GIMP</a>
+                                <a class="dropdown-item" data-attVal="12" href="{{url_for('selectDisplay',id=12)}}">(364852) GIMP</a>
+                                <a class="dropdown-item" data-attVal="13" href="{{url_for('selectDisplay',id=13)}}">(168803) GnuCash</a>
+                                <a class="dropdown-item" data-attVal="14" href="{{url_for('selectDisplay',id=14)}}">(522933) gvfs</a>
+                                <a class="dropdown-item" data-attVal="15" href="{{url_for('selectDisplay',id=15)}}">(64222) GTK</a>
+                                <a class="dropdown-item" data-attVal="16" href="{{url_for('selectDisplay',id=16)}}">(514396) GTK</a>
+                                <a class="dropdown-item" data-attVal="17" href="{{url_for('selectDisplay',id=17)}}">(215879) Eclipse</a>
+                                <a class="dropdown-item" data-attVal="18" href="{{url_for('selectDisplay',id=18)}}">(69350) Eclipse</a>
+                                <a class="dropdown-item" data-attVal="19" href="{{url_for('selectDisplay',id=19)}}">(226688) Eclipse</a>
+                                <a class="dropdown-item" data-attVal="20" href="{{url_for('selectDisplay',id=20)}}">(276131) Eclipse</a>
+                                <a class="dropdown-item" data-attVal="21" href="{{url_for('selectDisplay',id=21)}}">(429126) Bugzilla Calendar</a>
+                                <a class="dropdown-item" data-attVal="22" href="{{url_for('selectDisplay',id=22)}}">(403907) Thunderbird</a>
+                                <a class="dropdown-item" data-attVal="23" href="{{url_for('selectDisplay',id=23)}}">(296655) Thunderbird</a>
+                                <a class="dropdown-item" data-attVal="24" href="{{url_for('selectDisplay',id=24)}}">(153211) KDE</a>
+                                <a class="dropdown-item" data-attVal="25" href="{{url_for('selectDisplay',id=25)}}">(61263) KDE</a>
+                                <a class="dropdown-item" data-attVal="26" href="{{url_for('selectDisplay',id=26)}}">(188311) KDE</a>
+                                <a class="dropdown-item" data-attVal="27" href="{{url_for('selectDisplay',id=27)}}">(88340) KDE</a>
+                                <a class="dropdown-item" data-attVal="28" href="{{url_for('selectDisplay',id=28)}}">(66526) KDE</a>
+                                <a class="dropdown-item" data-attVal="29" href="{{url_for('selectDisplay',id=29)}}">(326962) GIMP</a>
+                                <a class="dropdown-item" data-attVal="30" href="{{url_for('selectDisplay',id=30)}}">(154119) Eclipse</a>
+                                <a class="dropdown-item" data-attVal="31" href="{{url_for('selectDisplay',id=31)}}#">(173341) KDE</a>
+                                <a class="dropdown-item" data-attVal="32" href="{{url_for('selectDisplay',id=32)}}">(155920) KDE</a>
+                                <a class="dropdown-item" data-attVal="33" href="{{url_for('selectDisplay',id=33)}}">(164545) KDE</a>
+                                <a class="dropdown-item" data-attVal="34" href="{{url_for('selectDisplay',id=34)}}">(174533) KDE</a>
+                            </div>
+                        </div>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </nav>
+        <!--Header content-->
+        <header class="page-header header container-fluid">
+        <div class="row">
+            <!--<div class="overlay"></div>-->
+            <div class="col-lg-10">
+                <div id="accordion" class="accordion">
+                    <div class="card mb-0">
+                        {% for turn in response['list_of_turns'] %}
+                            <div class="card-header collapsed" data-toggle="collapse" aria-expanded="true" data-target="#collapse{{turn['turn_id']}}" href="#">
+                                <a class="card-title"> {{turn['author_name']}} | {{turn['date_time']}} </a>
+                            </div>
+                            <div id="collapse{{turn['turn_id']}}" class="card-body collapse show" >
+                                <ul>
+                                {% for sent in turn['list_of_sentences'] %}
+                                    <li class="sent {{sent['tags']|join(' ')}}">{{sent['cleaned_text']}}</li>
+                                    {% for tag in sent['tags'] %}
+                                        <label><span class="badge" id="{{tag}}">{{ tag }}</span></label>
+                                    {% endfor %}
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 side-panel">
+                <div class="card fixed">
+                    <h5 class="card-header">Topic words</h5>
+                    <div class="card-body">
+                        {% for topic in response['topics'] %}
+                        <div>
+                            <input type="checkbox" id="{{topic}}" class="topic-check" /> <label class="checkbox-inline" >{{ topic }}</label> <br/>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        </header>
+
+        <!--Java scripts-->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" 
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="..\static\js\main.js"></script>
+    </body>
+</html>
