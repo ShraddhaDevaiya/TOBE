@@ -1,4 +1,4 @@
-# Task-based Bug Report Summarizer
+# Task-Oriented Bug Report Summarizer (TOBE)
 
 #### Starting the Stanford CoreNLP Server
 cd D:\stanford-corenlp>
