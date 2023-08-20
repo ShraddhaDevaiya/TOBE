@@ -28,7 +28,8 @@ class LabelWriterController:
         """
 
         curr_dir = os.getcwd()
-        res_path = os.path.join(curr_dir, 'data', 'res_ot_git_naive.csv')
+        #res_path = os.path.join(curr_dir, 'data', 'res_ot_git_naive.csv')
+        res_path = os.path.join(curr_dir, 'data', 'res_sh_des.csv')
         with open(res_path, 'a+', newline='') as write_obj:
             csv_writer = csv.writer(write_obj)
 

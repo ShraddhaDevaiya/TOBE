@@ -39,13 +39,11 @@ class DescriptionController:
             # cfg.setSentenceType(sent)
             sent.set_cleaned_text(tcc.clean_sentence(sent.get_text(), r_punc=False, r_digit=False))
         
-            if re.search(r'step.reproduce', sent.get_cleaned_text()) is not None or \
-                re.search(r'actual results?', sent.get_cleaned_text()) is not None or \
-                    re.search(r'expect results?', sent.get_cleaned_text()) is not None:
-                        # if 'Code' in sent.get_tags():
-                        #     sent.get_tags().remove('Code')
-                        sent.add_a_tag('DES')
-                        flag = True
+            if re.search(r'occurs|not found|Not found|not available error|error report|404 error|Exception|due to the fact|due to signal|becomes null|I attached|as a result|After installation|after.*installation|After disabling|appears after|after selecting|currently|Currently|sometimes|when I try|when I open|when I log|when trying|stop trying|entries|tries|Entries|no longer exists|wrong|did not respond|will not be|fails to load|it crashes|crash report|see crashes|crashed|the cause|instead of|Instead of|Keep-Alive|keep-alive|keeping track|allow me|allows to|some problems|still problematic|given this problem|have this problem|problem:|is the problem|but problem|would be displayed|would help\.|would do|would not be|would be worth|would be handy|would be available|would expect|would simply|would like that|would like your|would migrate|wanted to complete|want to create|want to remove|want to make|want to do|want to be able|normallt selects|may require|be required|I required|must not|must check|must also|it seems that|instead of it being|instead of adding|was expecting|Can we|was able to|should be able to|want to be able to|still be able to|correct/?|work correctly|correct|but sees that|but this|but my|but I didn\'t|but has|but maybe|but then|but I|but it|but after|but problem|but rules|but never|but multiple|but not|than before|before I would|According to|Expected .esults|expected\|Actual .esults?|teps to..eproduce|reproduce', sent.get_cleaned_text()) is not None:
+                # if 'Code' in sent.get_tags():
+                #     sent.get_tags().remove('Code')
+                sent.add_a_tag('DES')
+                flag = True
                
             if flag:
                 if re.match(r'^\d(\.|\))', sent.get_text()):

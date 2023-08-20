@@ -19,8 +19,10 @@ class OTFController:
     
     def __init__(self):
         curr_dir = os.getcwd()
-        model_path = os.path.join(curr_dir, 'data', 'yt_git_tfidf_naive.sav')
-        tfidfvect_path = os.path.join(curr_dir, 'data', 'yt_git_tfidf.sav')
+        #model_path = os.path.join(curr_dir, 'data', 'yt_git_tfidf_naive.sav')
+        #tfidfvect_path = os.path.join(curr_dir, 'data', 'yt_git_tfidf.sav')
+        model_path = os.path.join(curr_dir, 'data', 'naive.sav')
+        tfidfvect_path = os.path.join(curr_dir, 'data', 'tfidf.sav')
         
         with open(model_path, 'rb') as file:
             self.svm_model = pickle.load(file)
