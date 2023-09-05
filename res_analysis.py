@@ -4,7 +4,7 @@ import csv
 import os
 
 curr_dir = os.getcwd()
-y_path = os.path.join(curr_dir, 'res_analysis/human.csv')
+y_path = os.path.join(curr_dir, 'res_analysis/cor_human.csv')
 #pred_path = os.path.join(curr_dir, 'data/res_ot_knn.csv')
 pred_path = os.path.join(curr_dir, 'data/res_sh_des.csv')
 y = pd.read_csv(y_path, encoding='utf-8')

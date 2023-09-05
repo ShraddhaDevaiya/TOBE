@@ -21,7 +21,7 @@ class OTFController:
         curr_dir = os.getcwd()
         #model_path = os.path.join(curr_dir, 'data', 'yt_git_tfidf_naive.sav')
         #tfidfvect_path = os.path.join(curr_dir, 'data', 'yt_git_tfidf.sav')
-        model_path = os.path.join(curr_dir, 'data', 'naive.sav')
+        model_path = os.path.join(curr_dir, 'data', 'yt_git_model.sav')
         tfidfvect_path = os.path.join(curr_dir, 'data', 'tfidf.sav')
         
         with open(model_path, 'rb') as file:
