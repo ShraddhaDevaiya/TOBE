@@ -14,6 +14,7 @@ from jinja2 import Template
 
 from controllers.BugReportController import BugReportController
 from controllers.OTFController import OTFController
+from controllers.PlanController import PlanController
 from controllers.RSFController import RSFController
 from controllers.URLController import URLController
 from controllers.CWController import CWController
@@ -45,6 +46,7 @@ def display():
     
     # create controller objects
     otc = OTFController()
+    planc = PlanController()
     rsc = RSFController()
     urlc = URLController()
     # cfgc = CFGController()
@@ -61,6 +63,7 @@ def display():
             #SH_FIX
             #otc.findOTComment(sent)
             otc.findOTComment(sent, count)
+            planc.findPlanComment(sent, count)
             count = count + 1
             
             
@@ -117,6 +120,7 @@ def selectDisplay():
     
     # create controller objects
     otc = OTFController()
+    planc = PlanController()
     rsc = RSFController()
     urlc = URLController()
     # cfgc = CFGController()
@@ -217,6 +221,7 @@ def selectDisplay():
             #SH_FIX
             #otc.findOTComment(sent)
             otc.findOTComment(sent, count)
+            planc.findPlanComment(sent, count)
             count = count + 1
             
             

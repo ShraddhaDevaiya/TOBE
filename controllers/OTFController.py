@@ -21,7 +21,7 @@ class OTFController:
     """
     
     def __init__(self):
-        self.data1 = pd.read_csv("/home/shraddha/sh_work/TOBE/data/9_17_human.csv", engine="python")
+        self.data1 = pd.read_csv("/home/shraddha/sh_work/sh_TOBE/TOBE/data/12_2_human.csv", engine="python")
         self.i = 0
         curr_dir = os.getcwd()
         #model_path = os.path.join(curr_dir, 'data', 'yt_git_tfidf_naive.sav')

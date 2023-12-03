@@ -22,7 +22,6 @@ function filter_sentences(){
     $('#QT').prop("checked", true);
     $('#RES').prop("checked", true);
     $('#Topic').prop("checked", true);
-    $('#PLAN').prop("checked", true);
 
     var chkIDs = checkArray();
     let a = new Set(chkIDs);
@@ -67,8 +66,7 @@ const labelClassMap = {
     "QT" : "badge badge-info",
     "Topic" : "badge badge-primary",
     "URL" : "badge badge-secondary",
-    "Code" : "badge badge-dark",
-    "PLAN" : "badge badge-success"
+    "Code" : "badge badge-dark"
 }
 
 function change_label_css(){
@@ -90,7 +88,7 @@ function change_label_css(){
 
 $(".filter").change(function(){
     var chkIDs = checkArray();
-let a = new Set(chkIDs);
+    let a = new Set(chkIDs);
 
     var list_items, classes, matches;
 
